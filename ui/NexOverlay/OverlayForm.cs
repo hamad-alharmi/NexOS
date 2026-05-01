@@ -1,47 +1,41 @@
-using System.Diagnostics;
-using System.Drawing;
+using System;
 using System.Windows.Forms;
 
-namespace NexOverlay;
-
-public class OverlayForm : Form
+namespace NexOverlay
 {
-    private readonly Label _statsLabel = new();
-    private readonly Timer _timer = new();
-    private readonly PerformanceCounter _cpu = new("Processor", "% Processor Time", "_Total");
-    private readonly PerformanceCounter _ram = new("Memory", "Available MBytes");
-
-    public OverlayForm()
+    public class OverlayForm : Form
     {
-        FormBorderStyle = FormBorderStyle.None;
-        TopMost = true;
-        ShowInTaskbar = false;
-        StartPosition = FormStartPosition.Manual;
-        Location = new Point(24, 24);
-        Size = new Size(320, 120);
-        BackColor = Color.FromArgb(30, 32, 45);
-        Opacity = 0.88;
+        private Timer _timer;
 
-        _statsLabel.Dock = DockStyle.Fill;
-        _statsLabel.ForeColor = Color.FromArgb(170, 255, 190);
-        _statsLabel.Font = new Font("Consolas", 11, FontStyle.Bold);
-        _statsLabel.Padding = new Padding(12);
-        Controls.Add(_statsLabel);
+        public OverlayForm()
+        {
+            InitializeComponent();
+            SetupTimer();
+            // Additional UI enhancements
+            this.BackColor = System.Drawing.Color.FromArgb(30, 30, 30);
+            this.ForeColor = System.Drawing.Color.White;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.Opacity = 0.9;
+        }
 
-        _timer.Interval = 1000;
-        _timer.Tick += (_, _) => UpdateStats();
-        _timer.Start();
-        UpdateStats();
+        private void SetupTimer()
+        {
+            _timer = new System.Windows.Forms.Timer();
+            _timer.Interval = 1000; // 1 second interval
+            _timer.Tick += TimerTick;
+            _timer.Start();
+        }
 
-        DoubleClick += (_, _) => Close();
-    }
+        private void TimerTick(object sender, EventArgs e)
+        {
+            // Timer logic here
+            // Without ambiguity by defining specific functionalities
+        }
 
-    private void UpdateStats()
-    {
-        var cpu = _cpu.NextValue();
-        var ram = _ram.NextValue();
-        var fpsHint = "FPS: Use RTSS for exact frame counter";
-        _statsLabel.Text =
-            $"NexOverlay\nCPU: {cpu,5:0.0}%\nRAM Free: {ram,6:0} MB\n{fpsHint}\n{DateTime.Now:HH:mm:ss}";
+        protected override void OnPaint(PaintEventArgs e)
+        {
+            base.OnPaint(e);
+            // Add smooth animations or transitions here
+        }
     }
 }
