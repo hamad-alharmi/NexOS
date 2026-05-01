@@ -1,6 +1,6 @@
 param(
     [Parameter(Mandatory = $true)]
-    [ValidateSet("preset", "gamemode", "optimize", "restore", "install", "uninstall", "build", "package", "release", "diag", "smoke", "sync-version")]
+    [ValidateSet("preset", "gamemode", "optimize", "restore", "install", "uninstall", "build", "package", "release", "diag", "smoke", "sync-version", "overlay", "oneclick", "obfuscate")]
     [string]$Command,
     [string]$Arg = ""
 )
@@ -54,5 +54,22 @@ switch ($Command) {
             throw "Usage: .\tools\nexctl.ps1 -Command sync-version -Arg 0.2.0"
         }
         & (Join-Path $root "scripts\build\Sync-Version.ps1") -Version $Arg
+    }
+    "overlay" {
+        $overlayExe = Join-Path $root "artifacts\publish\NexOverlay\NexOverlay.exe"
+        if (-not (Test-Path $overlayExe)) {
+            throw "Overlay exe not found. Run build first."
+        }
+        Start-Process -FilePath $overlayExe
+    }
+    "oneclick" {
+        $oneClickExe = Join-Path $root "artifacts\publish\NexOSOneClick\NexOSOneClick.exe"
+        if (-not (Test-Path $oneClickExe)) {
+            throw "OneClick exe not found. Run build first."
+        }
+        Start-Process -FilePath $oneClickExe
+    }
+    "obfuscate" {
+        & (Join-Path $root "scripts\build\Obfuscate-NexOS.ps1")
     }
 }

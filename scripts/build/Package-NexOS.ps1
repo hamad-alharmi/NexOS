@@ -28,6 +28,9 @@ Copy-Item -Path (Join-Path $repoRoot "scripts") -Destination (Join-Path $staging
 Copy-Item -Path (Join-Path $repoRoot "configs") -Destination (Join-Path $staging "configs") -Recurse -Force
 Copy-Item -Path (Join-Path $repoRoot "tools") -Destination (Join-Path $staging "tools") -Recurse -Force
 Copy-Item -Path (Join-Path $publishRoot "NexShell") -Destination (Join-Path $staging "ui\NexShell") -Recurse -Force
+Copy-Item -Path (Join-Path $publishRoot "NexOverlay") -Destination (Join-Path $staging "ui\NexOverlay") -Recurse -Force
+Copy-Item -Path (Join-Path $publishRoot "NexOSOneClick") -Destination (Join-Path $staging "ui\NexOSOneClick") -Recurse -Force
+Copy-Item -Path (Join-Path $publishRoot "NexOSOneClick\NexOSOneClick.exe") -Destination (Join-Path $staging "NexOS-OneClick.exe") -Force
 Copy-Item -Path (Join-Path $repoRoot "README.md") -Destination (Join-Path $staging "README.md") -Force
 
 $zipPath = Join-Path $distRoot "NexOS-$Version-win64.zip"

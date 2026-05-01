@@ -11,13 +11,16 @@ NexOS is a **full distributable Windows customization project** focused on perfo
   - idle optimizer
   - reversible Game Mode
   - diagnostics exporter
+  - lightweight in-game overlay app (`NexOverlay`)
 - UI layer:
   - WinUI `NexShell` app (publishable)
+  - `NexOS-OneClick.exe` single-exe workflow controller
 - Distribution layer:
   - build/package/release scripts
   - Inno Setup installer project
   - checksummed zip artifacts
   - CI workflow for automated packaging
+  - optional obfuscation pipeline (`Confuser.CLI`)
 
 ## Build a distributable
 
@@ -29,10 +32,17 @@ NexOS is a **full distributable Windows customization project** focused on perfo
    - `.\scripts\build\Release-NexOS.ps1`
 4. Sync project + installer version before tagging:
    - `.\tools\nexctl.ps1 -Command sync-version -Arg 0.1.1`
+5. Optional obfuscation pass:
+   - `.\tools\nexctl.ps1 -Command obfuscate`
 
 Output:
 - `dist\NexOS-<version>-win64.zip`
 - `dist\NexOS-<version>-win64.sha256`
+
+Inside package:
+- `NexOS-OneClick.exe` (easy entrypoint)
+- `ui\NexShell\NexShellPrototype.exe`
+- `ui\NexOverlay\NexOverlay.exe`
 
 ## Install / Uninstall
 
@@ -49,6 +59,9 @@ Use `tools\nexctl.ps1`:
 - Toggle game mode: `-Command gamemode -Arg Enable`
 - Optimize idle: `-Command optimize`
 - Restore defaults: `-Command restore`
+- Launch overlay (after build): `-Command overlay`
+- Launch one-click UI (after build): `-Command oneclick`
+- Obfuscate binaries (optional): `-Command obfuscate`
 
 ## Project structure
 

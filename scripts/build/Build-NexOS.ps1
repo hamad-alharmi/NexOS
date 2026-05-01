@@ -7,6 +7,8 @@ $repoRoot = Split-Path -Parent (Split-Path -Parent $PSScriptRoot)
 $artifactRoot = Join-Path $repoRoot "artifacts"
 $publishRoot = Join-Path $artifactRoot "publish"
 $shellProject = Join-Path $repoRoot "ui\NexShellPrototype\NexShellPrototype.csproj"
+$overlayProject = Join-Path $repoRoot "ui\NexOverlay\NexOverlay.csproj"
+$oneClickProject = Join-Path $repoRoot "ui\NexOSOneClick\NexOSOneClick.csproj"
 
 function Invoke-NexOSExternal {
     param(
@@ -28,6 +30,8 @@ New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
 
 Write-Host "[*] Restoring .NET project..."
 Invoke-NexOSExternal -FilePath "dotnet" -Arguments @("restore", $shellProject)
+Invoke-NexOSExternal -FilePath "dotnet" -Arguments @("restore", $overlayProject)
+Invoke-NexOSExternal -FilePath "dotnet" -Arguments @("restore", $oneClickProject)
 
 Write-Host "[*] Publishing NexShell..."
 Invoke-NexOSExternal -FilePath "dotnet" -Arguments @(
@@ -38,6 +42,32 @@ Invoke-NexOSExternal -FilePath "dotnet" -Arguments @(
     "--self-contained", "false",
     "-p:PublishSingleFile=false",
     "-o", (Join-Path $publishRoot "NexShell")
+)
+
+Write-Host "[*] Publishing NexOverlay..."
+Invoke-NexOSExternal -FilePath "dotnet" -Arguments @(
+    "publish",
+    $overlayProject,
+    "-c", "Release",
+    "-r", "win-x64",
+    "--self-contained", "true",
+    "-p:PublishSingleFile=true",
+    "-p:DebugType=None",
+    "-p:DebugSymbols=false",
+    "-o", (Join-Path $publishRoot "NexOverlay")
+)
+
+Write-Host "[*] Publishing NexOS OneClick (single exe)..."
+Invoke-NexOSExternal -FilePath "dotnet" -Arguments @(
+    "publish",
+    $oneClickProject,
+    "-c", "Release",
+    "-r", "win-x64",
+    "--self-contained", "true",
+    "-p:PublishSingleFile=true",
+    "-p:DebugType=None",
+    "-p:DebugSymbols=false",
+    "-o", (Join-Path $publishRoot "NexOSOneClick")
 )
 
 Write-Host "[*] Validating PowerShell scripts..."

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<project outputDir="artifacts\publish-obfuscated" baseDir="." xmlns="http://confuser.codeplex.com">
+  <rule pattern="true" preset="normal" inherit="false">
+    <protection id="rename" />
+    <protection id="resources" />
+    <protection id="constants" />
+    <protection id="ctrl flow" />
+  </rule>
+
+  <!-- Update module paths if your publish output layout changes -->
+  <module path="artifacts\publish\NexOSOneClick\NexOSOneClick.exe" />
+  <module path="artifacts\publish\NexOverlay\NexOverlay.exe" />
+</project>

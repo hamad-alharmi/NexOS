@@ -8,9 +8,12 @@ $required = @(
     "scripts\build\Package-NexOS.ps1",
     "scripts\install\Install-NexOS.ps1",
     "scripts\install\Uninstall-NexOS.ps1",
+    "scripts\build\Obfuscate-NexOS.ps1",
     "scripts\performance\GameMode.ps1",
     "tools\nexctl.ps1",
-    "configs\presets\GamingMode.json"
+    "configs\presets\GamingMode.json",
+    "ui\NexOverlay\NexOverlay.csproj",
+    "ui\NexOSOneClick\NexOSOneClick.csproj"
 )
 
 foreach ($rel in $required) {
