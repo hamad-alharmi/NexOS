@@ -8,6 +8,18 @@ $artifactRoot = Join-Path $repoRoot "artifacts"
 $publishRoot = Join-Path $artifactRoot "publish"
 $shellProject = Join-Path $repoRoot "ui\NexShellPrototype\NexShellPrototype.csproj"
 
+function Invoke-NexOSExternal {
+    param(
+        [Parameter(Mandatory = $true)][string]$FilePath,
+        [Parameter(Mandatory = $true)][string[]]$Arguments
+    )
+
+    & $FilePath @Arguments
+    if ($LASTEXITCODE -ne 0) {
+        throw "Command failed with exit code ${LASTEXITCODE}: $FilePath $($Arguments -join ' ')"
+    }
+}
+
 if ($Clean -and (Test-Path $artifactRoot)) {
     Remove-Item -Path $artifactRoot -Recurse -Force
 }
@@ -15,10 +27,18 @@ if ($Clean -and (Test-Path $artifactRoot)) {
 New-Item -Path $publishRoot -ItemType Directory -Force | Out-Null
 
 Write-Host "[*] Restoring .NET project..."
-dotnet restore $shellProject
+Invoke-NexOSExternal -FilePath "dotnet" -Arguments @("restore", $shellProject)
 
 Write-Host "[*] Publishing NexShell..."
-dotnet publish $shellProject -c Release -r win-x64 --self-contained false -p:PublishSingleFile=false -o (Join-Path $publishRoot "NexShell")
+Invoke-NexOSExternal -FilePath "dotnet" -Arguments @(
+    "publish",
+    $shellProject,
+    "-c", "Release",
+    "-r", "win-x64",
+    "--self-contained", "false",
+    "-p:PublishSingleFile=false",
+    "-o", (Join-Path $publishRoot "NexShell")
+)
 
 Write-Host "[*] Validating PowerShell scripts..."
 $scriptFiles = Get-ChildItem -Path (Join-Path $repoRoot "scripts") -Recurse -Filter *.ps1
