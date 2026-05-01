@@ -34,6 +34,10 @@ if ($SkipJava) {
     & (Join-Path $InstallRoot "scripts\install\Install-JavaRuntime.ps1")
 }
 
-& (Join-Path $InstallRoot "scripts\install\Apply-NexOSProfile.ps1") -Preset $Preset
+if ($SkipJava) {
+    & (Join-Path $InstallRoot "scripts\install\Apply-NexOSProfile.ps1") -Preset $Preset -SkipJava
+} else {
+    & (Join-Path $InstallRoot "scripts\install\Apply-NexOSProfile.ps1") -Preset $Preset
+}
 
 Write-Host "[+] NexOS installed."

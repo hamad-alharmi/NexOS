@@ -1,6 +1,7 @@
 param(
     [ValidateSet("GamingMode", "MinimalMode", "AestheticMode")]
-    [string]$Preset = "GamingMode"
+    [string]$Preset = "GamingMode",
+    [switch]$SkipJava
 )
 
 $ErrorActionPreference = "Stop"
@@ -22,7 +23,7 @@ if ($cfg.performance.enableGameModeDefault -eq $true) {
     & (Join-Path $root "scripts\performance\GameMode.ps1") -Mode Enable
 }
 
-if ($cfg.runtime.installJava -eq $true) {
+if (-not $SkipJava -and $cfg.runtime.installJava -eq $true) {
     & (Join-Path $root "scripts\install\Install-JavaRuntime.ps1")
 }
 
