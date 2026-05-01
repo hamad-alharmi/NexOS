@@ -1,0 +1,36 @@
+name: NexOS CI
+
+on:
+  push:
+    branches: [ "main", "develop" ]
+  pull_request:
+    branches: [ "main", "develop" ]
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Run smoke tests
+        shell: pwsh
+        run: ./scripts/qa/Smoke-Test.ps1
+
+      - name: Build artifacts
+        shell: pwsh
+        run: ./scripts/build/Build-NexOS.ps1 -Clean
+
+      - name: Package distributable
+        shell: pwsh
+        run: ./scripts/build/Package-NexOS.ps1
+
+      - name: Upload dist
+        uses: actions/upload-artifact@v4
+        with:
+          name: nexos-dist
+          path: dist/*

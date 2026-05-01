@@ -1,0 +1,20 @@
+{
+  "name": "Aesthetic Mode",
+  "version": 1,
+  "performance": {
+    "optimizeIdle": true,
+    "enableGameModeDefault": false,
+    "powerPlan": "balanced"
+  },
+  "ui": {
+    "animations": "smooth",
+    "transparency": true,
+    "accentColor": "#9D7CFF"
+  },
+  "privacy": {
+    "telemetry": false
+  },
+  "runtime": {
+    "installJava": true
+  }
+}

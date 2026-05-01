@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "plugins": [
+    {
+      "id": "nexos.overlay",
+      "name": "NexOS Overlay",
+      "version": "0.1.0",
+      "entry": "plugins/nexos.overlay/NexOS.Overlay.dll",
+      "permissions": ["overlay", "process-read"],
+      "minApiVersion": "0.1.0"
+    }
+  ]
+}

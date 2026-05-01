@@ -1,0 +1,20 @@
+{
+  "name": "Gaming Mode",
+  "version": 1,
+  "performance": {
+    "optimizeIdle": true,
+    "enableGameModeDefault": true,
+    "powerPlan": "high_performance"
+  },
+  "ui": {
+    "animations": "minimal",
+    "transparency": true,
+    "accentColor": "#5B8CFF"
+  },
+  "privacy": {
+    "telemetry": false
+  },
+  "runtime": {
+    "installJava": true
+  }
+}

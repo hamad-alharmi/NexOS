@@ -1,0 +1,15 @@
+{
+  "id": "nexos.minimal-gray",
+  "name": "Minimal Gray",
+  "colors": {
+    "background": "#131313",
+    "panel": "#202020",
+    "textPrimary": "#F2F2F2",
+    "textSecondary": "#B0B0B0",
+    "accent": "#9A9A9A"
+  },
+  "effects": {
+    "transparency": false,
+    "animationLevel": "minimal"
+  }
+}

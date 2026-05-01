@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "target": "Windows 11 Pro/Enterprise x64",
+  "remove": [
+    "Clipchamp",
+    "Teams consumer",
+    "Bing News",
+    "Xbox.TCUI",
+    "GetHelp",
+    "GetStarted",
+    "MixedReality.Portal",
+    "People",
+    "SolitaireCollection"
+  ],
+  "disableServices": [
+    "DiagTrack",
+    "dmwappushservice"
+  ],
+  "keep": [
+    "Windows Update Core",
+    "DirectX",
+    "Audio Stack",
+    "PnP Drivers",
+    "Defender Core",
+    "Network Stack",
+    ".NET Runtime"
+  ],
+  "notes": "Apply via NTLite profile and validate anti-cheat/game launcher compatibility before release."
+}

@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "themes": [
+    {
+      "id": "nexos.dark-neo",
+      "name": "Dark Neo",
+      "version": "0.1.0",
+      "file": "themes/dark-neo/theme.json"
+    },
+    {
+      "id": "nexos.minimal-gray",
+      "name": "Minimal Gray",
+      "version": "0.1.0",
+      "file": "themes/minimal-gray/theme.json"
+    }
+  ]
+}

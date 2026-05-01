@@ -1,0 +1,15 @@
+{
+  "id": "nexos.dark-neo",
+  "name": "Dark Neo",
+  "colors": {
+    "background": "#101216",
+    "panel": "#1D2230",
+    "textPrimary": "#F0F3FF",
+    "textSecondary": "#AFC0E8",
+    "accent": "#5B8CFF"
+  },
+  "effects": {
+    "transparency": true,
+    "animationLevel": "smooth"
+  }
+}
